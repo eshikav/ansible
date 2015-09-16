@@ -1,0 +1,33 @@
+---
+#- name: Configuring the hostnames
+#  shell: /bin/echo HOSTNAME={{ host_name }} >> /etc/sysconfig/network
+
+- name: configuring the Yum Repository
+  copy: src=/etc/ansible/common/templates/{{ item }} dest=/etc/yum.repos.d/ mode=644
+  with_items:
+     - epel-release-6-8.noarch.rpm
+     - rdo-release-havana-7.noarch.rpm
+     - Redhat.repo
+
+
+- name: install the ntp package
+  yum: name=ntp state=latest
+
+- name: Configuring the ntp server
+  local_action: copy src=/etc/ansible/common/templates/ntp.conf dest=/etc/ntp.conf
+
+- name: start the ntp server
+  service: name=ntpd state=started
+
+
+- name: configuring the Yum Repository
+  shell: cd /etc/yum.repos.d/; yum install {{ item }} -y
+  with_items:
+     - epel-release-6-8.noarch.rpm
+     - rdo-release-havana-7.noarch.rpm
+
+- name: configuring the Yum Repository
+  shell: sed -i 's/openstack\/openstack/openstack\/EOL\/openstack/g' /etc/yum.repos.d/rdo-release.repo
+
+- name: enabling ntpd across reboot
+  shell: chkconfig ntpd on

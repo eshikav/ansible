@@ -1,0 +1,5 @@
+[Redhat]
+name=Redhat
+baseurl=ftp://192.168.68.128/Redhat_repo/
+enabled=1
+gpgcheck=0

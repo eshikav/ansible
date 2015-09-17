@@ -1,0 +1,10 @@
+controller2 host_name=test
+192.168.68.128
+192.168.68.15
+[controller]
+Test-OSController2 host_name=Test-OSController2
+Test-OSController host_name=Test-OSController
+[compute]
+192.168.68.12 host_name=os-compute
+[network]
+192.168.68.13 host_name=os-network

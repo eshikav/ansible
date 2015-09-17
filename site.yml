@@ -1,0 +1,8 @@
+---
+- hosts: controller
+  remote_user: root
+  roles:
+#     - common
+     - controller_setup
+  tags:
+     - Controller_build 

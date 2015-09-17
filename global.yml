@@ -1,0 +1,3 @@
+---
+os_name: Redhat
+installation_path: "{{ lookup('env','INSTALLATION_PATH') }}"

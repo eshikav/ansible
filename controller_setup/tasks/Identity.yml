@@ -1,0 +1,32 @@
+---
+- name: Installing the Identity Service 
+  yum: name={{ item }} state=latest
+  with_items:
+    - openstack-keystone
+    - python-keystoneclient
+
+
+- name: Installing the Openstack Utils package
+  yum: name=openstack-utils state=latest
+
+- name: Configuring the Identity service
+  shell: 'openstack-config --set /etc/keystone/keystone.conf sql connection mysql://keystone:{{ mysql_password }}@{{ ansible_hostname }}/keystone'
+
+- name: seting up database for the Identity service
+  shell: 'echo redhat123@ | openstack-db --init --service keystone --password {{ keystone_password }}'
+
+
+- shell: openstack-config --set /etc/keystone/keystone.conf DEFAULT admin_token {{ admin_token }}
+
+- name: Setting up PKI tokens
+  shell: keystone-manage pki_setup --keystone-user keystone --keystone-group keystone
+
+- name: Marking the Keystone files with the keystone user and group
+  shell: chown -R keystone:keystone /etc/keystone/* /var/log/keystone/keystone.log
+
+- name: Starting the Keystone service and making them persistent across the reboot
+  service: name=openstack-keystone state=started
+
+- command: chkconfig openstack-keystone on
+
+

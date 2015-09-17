@@ -1,0 +1,7 @@
+auth_host=Test-OSController2
+admin_user=glance
+admin_tenant_name=service
+admin_password=redhat123@auth_host=Test-OSController
+admin_user=glance
+admin_tenant_name=service
+admin_password=redhat123@

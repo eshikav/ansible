@@ -1,0 +1,13 @@
+---
+- name: Installing the Messaging server
+  yum: name={{ item }} state=latest
+  with_items:
+    - qpid-cpp-server 
+    - memcached
+- name: Configuring the messaging server
+  copy: src=/etc/ansible/controller_setup/templates/qpidd.conf dest=/etc/qpidd.conf
+- name: starting the messaging Server
+  service: name=qpidd state=started
+
+- name: Configuring the Message service across the reboot
+  command: chkconfig qpidd on

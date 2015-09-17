@@ -1,0 +1,22 @@
+---
+- name: Installing the Mysql Package for the Openstack
+  yum: name={{ item }} state=latest
+  with_items:
+   - mysql
+   - mysql-server
+   - MySQL-python
+
+- name: Configuring the Mysql database
+  copy: src=/etc/ansible/controller_setup/templates/my.cnf dest=/etc/my.cnf
+
+- name: starting the Mysql database
+  service: name=mysqld state=started
+
+- name: Securing the Mysql database
+  shell: echo -ne "\ny\n{{ mysql_password }}\n{{ mysql_password }}\n\n\n\n\n" | mysql_secure_installation
+
+- name: starting the MySQL database
+  service: name=mysqld state=restarted
+
+- name: Making the Mysql database on 
+  shell: chkconfig mysqld on

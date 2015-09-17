@@ -1,0 +1,6 @@
+---
+#- include: Messaging_Server.yml
+#- include: mysql.yml
+#- include: Identity.yml
+#- include: Identity_setup.yml
+- include: Glance.yml

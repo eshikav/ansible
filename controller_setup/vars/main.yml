@@ -1,0 +1,12 @@
+---
+mysql_password: redhat123@
+admin_token: ad4c82ecf26a7b40149d
+keystone_password: redhat123@
+glance_password: redhat123@
+compute_password: redhat123@
+controller_password: redhat123@
+network_password: redhat123@
+keystone_admin_port: 35357
+admin_user_password: redhat123@
+demo_user_password: redhat123@
+glance_port: 9292

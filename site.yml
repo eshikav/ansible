@@ -2,7 +2,7 @@
 - hosts: controller
   remote_user: root
   roles:
-#     - common
+     - common
      - controller_setup
   tags:
      - Controller_build 
